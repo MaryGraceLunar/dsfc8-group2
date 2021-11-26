@@ -93,7 +93,7 @@ elif my_page == 'page 5':
     
 elif my_page == 'page 6':
     st.title("Geospatial Analysis: Age Category")
-    merged_data = gpd.read_file("data/map_data_clean/AgeBin.shp")
+    merged_data = gpd.read_file("data/map_data_clean/AgeBin.shx")
     
     option1 = st.sidebar.selectbox('Which age bin do you want to see', df['Age Category'].unique())
 
