@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 
 
 df = pd.read_csv("data/2016-2019-voter-data.csv")
-my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4', 'page 5'])
+my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4', 'page 5','page 6'])
 
 if my_page == 'page 1':
     st.title("Data")
