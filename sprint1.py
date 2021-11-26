@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 
 
 df = pd.read_csv("data/2016-2019-voter-data.csv")
-my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4'])
+my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4','page 5'])
 
 if my_page == 'page 1':
     st.title("Data")
@@ -77,3 +77,16 @@ elif my_page == 'page 4':
     shapefile["lat"] = shapefile.geometry.centroid.x
     shapefile["lon"] = shapefile.geometry.centroid.y
     st.map(shapefile)
+    
+elif my_page == 'page 5':
+    st.title("Geospatial Analysis: Geopandas")
+    merged_data = gpd.read_file("data/map_clean_data/map_data_clean.shp")
+   
+    # Copied from Mapping exercise
+    variable = "voter_prec"
+    vmin, vmax = merged_data["voter_prec"].min(), merged_data["voter_prec"].max()
+    fig, ax = plt.subplots(1, figsize=(15, 10))
+    merged_data.plot(column=variable, cmap='Oranges', linewidth=0.8, ax=ax, edgecolor='0.8', vmin=vmin, vmax=vmax)
+    sm = plt.cm.ScalarMappable(cmap='Oranges', norm=plt.Normalize(vmin=vmin, vmax=vmax))
+    cbar = fig.colorbar(sm)
+    st.pyplot(fig)
