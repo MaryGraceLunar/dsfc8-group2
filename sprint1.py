@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 
 
 df = pd.read_csv("data/2016-2019-voter-data.csv")
-my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4','page 5'])
+my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4', 'page 5', 'page 6'])
 
 if my_page == 'page 1':
     st.title("Data")
@@ -72,7 +72,7 @@ elif my_page == 'page 3':
     folium_static(mymap)
     
 elif my_page == 'page 4':
-    st.title("Geospatial Analysis: st.map()")
+    st.title("Geospatioal Analysis: st.map()")
     shapefile = gpd.read_file('data/Provinces/Provinces.shp')
     shapefile["lat"] = shapefile.geometry.centroid.x
     shapefile["lon"] = shapefile.geometry.centroid.y
@@ -88,5 +88,20 @@ elif my_page == 'page 5':
     fig, ax = plt.subplots(1, figsize=(15, 10))
     merged_data.plot(column=variable, cmap='Oranges', linewidth=0.8, ax=ax, edgecolor='0.8', vmin=vmin, vmax=vmax)
     sm = plt.cm.ScalarMappable(cmap='Oranges', norm=plt.Normalize(vmin=vmin, vmax=vmax))
+    cbar = fig.colorbar(sm)
+    st.pyplot(fig)
+    
+elif my_page == 'page 6':
+        
+    option = st.sidebar.selectbox('Which age bin do you want to see', df['Age Category'].unique())
+
+    'You selected: ', option
+
+    variable = option
+    vmin, vmax = merged_data[option].min(), merged_data[option].max()
+    fig, ax = plt.subplots(1, figsize=(15, 10))
+    merged_data.plot(column=variable, cmap='OrRd', linewidth=0.8, ax=ax, edgecolor='0.8', vmin=vmin, vmax=vmax)
+    ax.set_title("Voters by Age Category", size = 18)
+    sm = plt.cm.ScalarMappable(cmap='OrRd', norm=plt.Normalize(vmin=vmin, vmax=vmax))
     cbar = fig.colorbar(sm)
     st.pyplot(fig)
