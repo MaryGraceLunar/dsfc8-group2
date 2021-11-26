@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 
 
 df = pd.read_csv("data/2016-2019-voter-data.csv")
-my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4', 'page 5', 'page 6'])
+my_page = st.sidebar.radio('Page Navigation', ['page 1', 'page 2', 'page 3', 'page 4', 'page 5'])
 
 if my_page == 'page 1':
     st.title("Data")
@@ -92,16 +92,19 @@ elif my_page == 'page 5':
     st.pyplot(fig)
     
 elif my_page == 'page 6':
-        
-    option = st.sidebar.selectbox('Which age bin do you want to see', df['Age Category'].unique())
+    st.title("Geospatial Analysis: Age Category")
+    merged_data = gpd.read_file("data/map_data_clean/AgeBin.shp")
+    
+    option1 = st.sidebar.selectbox('Which age bin do you want to see', df['Age Category'].unique())
 
-    'You selected: ', option
+    'You selected: ', option1
 
-    variable = option
-    vmin, vmax = merged_data[option].min(), merged_data[option].max()
+    variable = option1
+    vmin, vmax = merged_data[option1].min(), merged_data[option1].max()
     fig, ax = plt.subplots(1, figsize=(15, 10))
     merged_data.plot(column=variable, cmap='OrRd', linewidth=0.8, ax=ax, edgecolor='0.8', vmin=vmin, vmax=vmax)
     ax.set_title("Voters by Age Category", size = 18)
     sm = plt.cm.ScalarMappable(cmap='OrRd', norm=plt.Normalize(vmin=vmin, vmax=vmax))
     cbar = fig.colorbar(sm)
     st.pyplot(fig)
+    
