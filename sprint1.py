@@ -80,7 +80,7 @@ elif my_page == 'page 4':
     
 elif my_page == 'page 5':
     st.title("Geospatial Analysis: Geopandas")
-    merged_data = gpd.read_file("data/map_clean_data/map_data_clean.shp")
+    merged_data = gpd.read_file("data/map_clean_data/map_data_clean.shx")
    
     # Copied from Mapping exercise
     variable = "voter_prec"
